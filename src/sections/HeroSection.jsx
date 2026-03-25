@@ -4,7 +4,6 @@ import { RevealItem } from '../components/ui/StaggerReveal';
 import { useInViewReveal } from '../hooks/useInViewReveal';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { useTypewriter } from '../hooks/useTypewriter';
-import { useWebGLPreference } from '../hooks/useWebGLPreference';
 import { heroContent, socialLinks } from '../data/portfolioData';
 
 const LazyHeroCanvas = lazy(() =>
@@ -21,10 +20,10 @@ function getSocialIconSrc(icon) {
 export function HeroSection() {
   const displayText = useTypewriter(heroContent.subtitle, 50);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { canUseWebGL, isEnabled: isWebglEnabled, toggleEnabled: toggleWebglEnabled } = useWebGLPreference();
+  const canUseWebGL = typeof window !== 'undefined' && !window.matchMedia('(max-width: 768px)').matches;
   const { elementRef: heroLoadRef, isVisible: isHeroVisible } = useInViewReveal({ threshold: 0.05, rootMargin: '200px 0px', once: true });
   const { elementRef: heroActiveRef, isVisible: isHeroActive } = useInViewReveal({ threshold: 0.08, rootMargin: '80px 0px', once: false });
-  const shouldRender3D = isHeroVisible && !prefersReducedMotion && canUseWebGL && isWebglEnabled;
+  const shouldRender3D = isHeroVisible && !prefersReducedMotion && canUseWebGL;
 
   const setHeroRefs = useCallback((node) => {
     heroLoadRef.current = node;
@@ -70,30 +69,6 @@ export function HeroSection() {
           <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-8 md:mt-12 mb-10">
             <a href="#experience-projects" className="btn-primary interactive-button">VIEW_WORK</a>
             <a href="#contact" className="btn-secondary interactive-button">CONTACT</a>
-            {canUseWebGL && !prefersReducedMotion ? (
-              <div className="relative group inline-flex items-center gap-2">
-                <button
-                  type="button"
-                  className="btn-secondary interactive-button inline-flex items-center gap-2"
-                  onClick={toggleWebglEnabled}
-                  aria-pressed={isWebglEnabled}
-                  aria-describedby="enable-3d-tooltip"
-                  aria-label={isWebglEnabled ? 'Disable 3D mode' : 'Enable 3D mode'}
-                >
-                  <span>Enable 3D</span>
-                  <span className={`font-mono text-[10px] tracking-widest ${isWebglEnabled ? 'text-primary' : 'text-on-surface-variant'}`}>
-                    {isWebglEnabled ? 'ON' : 'OFF'}
-                  </span>
-                </button>
-                <div
-                  id="enable-3d-tooltip"
-                  role="tooltip"
-                  className="hero-tooltip pointer-events-none absolute left-0 top-full mt-2 w-72 max-w-[80vw] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
-                >
-                  May increase battery usage and reduce performance on low-end devices
-                </div>
-              </div>
-            ) : null}
           </div>
 
           <div className="flex flex-wrap justify-center lg:justify-start gap-5 items-center border-t border-outline-variant/20 pt-8 w-full max-w-md">
