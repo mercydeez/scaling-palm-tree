@@ -36,12 +36,6 @@ export const aboutContent = {
   description: "I'm an AI Engineer specializing in building production-ready AI systems, LLM applications, and scalable AI infrastructure. Proficient in Python, FastAPI, and Docker, I design and deploy backend AI services, multi-agent workflows using LangChain/LangGraph, and vector retrieval pipelines with Pinecone and modern LLM APIs.",
 };
 
-export const aboutStats = [
-  { label: 'Projects Built', value: '10+' },
-  { label: 'Records Analyzed', value: '913K+' },
-  { label: 'Certifications', value: '5+' },
-  { label: 'Research Paper', value: '1' },
-];
 
 export const skillsData = [
   {
@@ -147,16 +141,30 @@ export const educationData = [
   },
 ];
 
+export const featuredProjectData = {
+  name: 'Lulu Sales Intelligence Dashboard',
+  badge: '⭐ ENTERPRISE',
+  description: 'Enterprise-grade real-time sales analytics platform for Lulu Hypermarket UAE. Live SSE streaming, AI chat assistant with OpenAI, 4-tier RBAC, Docker Compose deployment.',
+  tech: [
+    'Next.js',
+    'FastAPI',
+    'Python',
+    'PostgreSQL',
+    'Redis',
+    'Docker',
+    'TypeScript',
+    'OpenAI',
+    'JWT',
+    'SSE',
+    'NGINX',
+    'GitHub Actions',
+  ],
+  metrics: ['Real-time SSE', '4-Tier RBAC', 'AI + Voice', 'CI/CD Pipeline'],
+  architecture: 'NGINX → Next.js + FastAPI → PostgreSQL + Redis',
+  github: 'https://github.com/mercydeez/lulu-sales-intelligence-dashboard',
+};
+
 export const projectsData = [
-  {
-    id: 1,
-    name: 'Lulu Conversational AI Platform',
-    description: 'Enterprise API-based AI system serving real-time predictions and natural language queries. Built on event-driven architecture with OpenAI, FastAPI, Docker, and Redis pub/sub.',
-    tech: ['Python', 'FastAPI', 'Docker', 'OpenAI', 'PostgreSQL', 'Redis'],
-    status: 'COMPLETED',
-    github: 'https://github.com/mercydeez/lulu-sales-intelligence-dashboard',
-    demo: '',
-  },
   {
     id: 2,
     name: 'Enterprise RAG Pipeline',
@@ -172,7 +180,7 @@ export const projectsData = [
     description: 'Intelligent workflow automation using LangGraph and n8n to ingest tickets, analyze sentiment, and autonomously draft responses.',
     tech: ['LangGraph', 'FastAPI', 'n8n', 'Python'],
     status: 'ACTIVE',
-    github: 'https://github.com/mercydeez/multi-agent-automation',
+    github: '',
     demo: '',
   },
   {
@@ -181,7 +189,7 @@ export const projectsData = [
     description: 'Stateless containerized microservice serving open-source Hugging Face models as inference APIs, deployed on AWS.',
     tech: ['Hugging Face', 'FastAPI', 'Docker', 'AWS'],
     status: 'COMPLETED',
-    github: 'https://github.com/mercydeez/hf-inference-microservice',
+    github: '',
     demo: '',
   },
 ];

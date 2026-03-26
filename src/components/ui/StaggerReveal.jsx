@@ -37,7 +37,7 @@ export function StaggerContainer({
 export function RevealItem({
   children,
   className = '',
-  distance = 24,
+  distance = 32,
   delay = 0,
   threshold = 0.2,
   rootMargin = '0px 0px -10% 0px',
@@ -46,17 +46,20 @@ export function RevealItem({
 
   const variants = prefersReducedMotion
     ? {
-        hidden: { opacity: 1, y: 0 },
-        visible: { opacity: 1, y: 0 },
+        hidden: { opacity: 1, y: 0, scale: 1, rotateX: 0 },
+        visible: { opacity: 1, y: 0, scale: 1, rotateX: 0 },
       }
     : {
-        hidden: { opacity: 0, y: distance },
+        hidden: { opacity: 0, y: distance, scale: 0.96, rotateX: 12 },
         visible: {
           opacity: 1,
           y: 0,
+          scale: 1,
+          rotateX: 0,
           transition: {
-            duration: 0.56,
-            ease: [0.16, 1, 0.3, 1],
+            duration: 0.8,
+            type: 'spring',
+            bounce: 0.25,
             delay: delay / 1000,
           },
         },
@@ -69,7 +72,7 @@ export function RevealItem({
       variants={variants}
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
-      style={{ willChange: 'transform, opacity' }}
+      style={{ willChange: 'transform, opacity', transformOrigin: 'top center' }}
     >
       {children}
     </motion.div>

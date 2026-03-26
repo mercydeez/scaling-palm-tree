@@ -87,6 +87,28 @@
     opacity: 0.1;
   }
 
+  @keyframes scanline-drop {
+    0% { transform: translateY(-50px); }
+    100% { transform: translateY(500px); }
+  }
+
+  .animate-scanline {
+    animation: scanline-drop 2.5s cubic-bezier(0.2, 0, 0.8, 1) infinite;
+  }
+
+  .kinetic-text {
+    transition: text-shadow 0.2s ease-out, transform 0.2s ease-out;
+    display: inline-block;
+  }
+
+  @media (hover: hover) {
+    .hero-title-container:hover .kinetic-text {
+      text-shadow: calc((var(--mouse-x, 0px) - 50vw) * -0.06) calc((var(--mouse-y, 0px) - 50vh) * -0.06) 0px rgba(184, 253, 75, 0.5),
+                   calc((var(--mouse-x, 0px) - 50vw) * -0.12) calc((var(--mouse-y, 0px) - 50vh) * -0.12) 15px rgba(184, 253, 75, 0.2);
+      transform: scale(1.02);
+    }
+  }
+
   .glass-panel {
     @apply backdrop-blur-xl bg-surface-container-low/70;
   }
@@ -152,11 +174,37 @@
   .interactive-button,
   .interactive-card,
   .interactive-input {
-    transition-property: transform, opacity;
-    transition-duration: 220ms;
+    transition-property: transform, opacity, border-color, background-color;
+    transition-duration: 400ms;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     transform: translate3d(0, 0, 0);
     opacity: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .interactive-card::before,
+  .interactive-input::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.08), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+  }
+
+  .interactive-card:hover::before,
+  .interactive-input:hover::before {
+    opacity: 1;
+  }
+
+  /* Ensure content inside interactive cards stays above the flashlight */
+  .interactive-card > *,
+  .interactive-input > * {
+    position: relative;
+    z-index: 1;
   }
 
   .interactive-button:hover {
@@ -165,6 +213,7 @@
 
   .interactive-card:hover {
     transform: translate3d(0, -4px, 0);
+    border-color: rgba(184, 253, 75, 0.3);
   }
 
   .interactive-input:hover {
@@ -205,5 +254,49 @@
     .hero-grid-fallback {
       animation: none !important;
     }
+  }
+
+  /* --- Ticker CSS --- */
+  @keyframes ticker-scroll-left {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @keyframes ticker-scroll-right {
+    0% { transform: translate3d(-50%, 0, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+
+  .ticker-container {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .ticker-track.left {
+    animation: ticker-scroll-left 40s linear infinite;
+  }
+
+  .ticker-track.right {
+    animation: ticker-scroll-right 40s linear infinite;
+  }
+
+  .ticker-container:hover .ticker-track,
+  .ticker-container:active .ticker-track {
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 768px) {
+    .ticker-track.left { animation-duration: 25s; }
+    .ticker-track.right { animation-duration: 25s; }
   }
 }

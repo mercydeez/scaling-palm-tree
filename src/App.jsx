@@ -10,17 +10,22 @@ import { HeroSection } from './sections/HeroSection';
 import { AboutSkillsSection } from './sections/AboutSkillsSection';
 import { ExperienceProjectsSection } from './sections/ExperienceProjectsSection';
 import { ContactSection } from './sections/ContactSection';
+import BackToTop from './components/ui/BackToTop';
 
 export default function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    return !sessionStorage.getItem('splashPlayed');
+  });
 
   useEffect(() => {
+    if (!showSplash) return;
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 3000);
+      sessionStorage.setItem('splashPlayed', 'true');
+    }, 3200);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [showSplash]);
 
   useEffect(() => {
     if (showSplash) {
@@ -34,7 +39,6 @@ export default function App() {
       document.body.style.overflow = '';
     };
   }, [showSplash]);
-
   return (
     <>
       <SmoothScroll />
@@ -47,6 +51,8 @@ export default function App() {
         <ContactSection />
 
       </MainLayout>
+
+      <BackToTop />
 
       <AnimatePresence mode="wait">
         {showSplash ? <SplashScreen key="portfolio-splash" /> : null}

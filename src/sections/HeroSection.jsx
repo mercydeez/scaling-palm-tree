@@ -14,7 +14,9 @@ function getSocialIconSrc(icon) {
   if (icon.startsWith('http://') || icon.startsWith('https://') || icon.startsWith('data:') || icon.startsWith('/')) {
     return icon;
   }
-  return `https://cdn.simpleicons.org/${icon}`;
+  // Strip any trailing color like /fff
+  const baseIcon = icon.split('/')[0];
+  return `https://cdn.simpleicons.org/${baseIcon}`;
 }
 
 export function HeroSection() {
@@ -46,7 +48,7 @@ export function HeroSection() {
 
       <div className="absolute inset-0 z-[1] opacity-10 pointer-events-none hero-grid-overlay" />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 pb-12 md:pb-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 pb-12 md:pb-20 mt-12">
         
         {/* Left Side - Text */}
         <RevealItem
@@ -54,11 +56,9 @@ export function HeroSection() {
           threshold={0.25}
           delay={80}
         >
-
-
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] xl:text-[8rem] font-black font-headline tracking-tighter text-on-surface leading-[0.85] max-w-full overflow-hidden">
-            <ScrambleText text="ATHARVA" delay={300} style={{ display: 'block' }} />
-            <ScrambleText text="SOUNDANKAR" delay={600} style={{ display: 'block' }} />
+          <h1 className="hero-title-container text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] xl:text-[8rem] font-black font-headline tracking-tighter text-on-surface leading-[0.85] max-w-full overflow-visible">
+            <div className="kinetic-text"><ScrambleText text="ATHARVA" delay={2800} style={{ display: 'block' }} /></div>
+            <div className="kinetic-text"><ScrambleText text="SOUNDANKAR" delay={3100} style={{ display: 'block' }} /></div>
           </h1>
 
           <p className="mt-6 md:mt-8 max-w-xl font-mono text-base md:text-lg text-on-surface-variant min-h-[48px]">
@@ -71,23 +71,34 @@ export function HeroSection() {
             <a href="#contact" className="btn-secondary interactive-button">CONTACT</a>
           </div>
 
-          <div className="flex flex-wrap justify-center lg:justify-start gap-5 items-center border-t border-outline-variant/20 pt-8 w-full max-w-md">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="interactive-button group p-2 -m-2 opacity-100 hover:-translate-y-1"
-                aria-label={link.label}
-              >
-                <img 
-                  src={getSocialIconSrc(link.icon)} 
-                  alt={link.label} 
-                  className="w-5 h-5 object-contain shrink-0 filter-none group-hover:brightness-110 transition-all" 
-                />
-              </a>
-            ))}
+          <div className="flex gap-4 flex-wrap pointer-events-auto justify-center lg:justify-start border-t border-outline-variant/20 pt-8 w-full max-w-lg mt-8">
+            <a href="https://github.com/mercydeez" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="GitHub">
+              <img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub" width={22} height={22} />
+            </a>
+            <a href="https://www.linkedin.com/in/atharva-soundankar/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="LinkedIn">
+              <img src="/images/linkedin.png" alt="LinkedIn" width={22} height={22} style={{ objectFit: 'contain' }} />
+            </a>
+            <a href="https://x.com/Atharva3895" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="X/Twitter">
+              <img src="https://cdn.simpleicons.org/x/FFFFFF" alt="Twitter" width={22} height={22} />
+            </a>
+            <a href="https://www.kaggle.com/atharvasoundankar" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="Kaggle">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#20BEFF"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v12.562l6.44-6.235c.15-.161.297-.241.449-.241h3.275c.149 0 .223.053.207.159-.015.101-.086.181-.196.247l-6.568 6.172 6.788 8.634c.149.186.186.365.117.494z" /></svg>
+            </a>
+            <a href="https://medium.com/@atharva3895" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="Medium">
+              <img src="https://cdn.simpleicons.org/medium/FFFFFF" alt="Medium" width={22} height={22} />
+            </a>
+            <a href="https://instagram.com/atharava_soundankar" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="Instagram">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram" width={22} height={22} />
+            </a>
+            <a href="https://www.facebook.com/atharva.soundankar.7/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="Facebook">
+              <img src="https://cdn.simpleicons.org/facebook/1877F2" alt="Facebook" width={22} height={22} />
+            </a>
+            <a href="https://www.threads.com/@ai.with.atharva" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="Threads">
+              <img src="https://cdn.simpleicons.org/threads/FFFFFF" alt="Threads" width={22} height={22} />
+            </a>
+            <a href="mailto:atharva3895@gmail.com" className="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300" title="Gmail">
+              <img src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail" width={22} height={22} />
+            </a>
           </div>
         </RevealItem>
 
@@ -98,18 +109,19 @@ export function HeroSection() {
           delay={140}
         >
           <div style={{ position: 'relative', width: '100%', maxWidth: '340px', margin: '0 auto' }}>
-            <div style={{ border: '1px solid rgba(184,253,75,0.2)', background: '#131313', padding: '16px', position: 'relative' }}>
+            <div className="group interactive-card" style={{ border: '1px solid rgba(184,253,75,0.2)', background: '#131313', padding: '16px', position: 'relative', overflow: 'hidden' }}>
               <img
                 src="/images/profile_pic.png"
                 alt="Atharva Soundankar"
-                className="w-full block filter grayscale hover:grayscale-0 transition-all duration-500 ease-in-out"
+                className="w-full block filter grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-primary opacity-0 mix-blend-overlay group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-primary/80 opacity-0 group-hover:opacity-100 group-hover:animate-scanline pointer-events-none shadow-[0_0_8px_rgba(184,253,75,0.8)]" />
               <div style={{ position:'absolute', top:4, left:4, width:16, height:16, borderTop:'2px solid #b8fd4b', borderLeft:'2px solid #b8fd4b' }} />
               <div style={{ position:'absolute', top:4, right:4, width:16, height:16, borderTop:'2px solid #b8fd4b', borderRight:'2px solid #b8fd4b' }} />
               <div style={{ position:'absolute', bottom:4, left:4, width:16, height:16, borderBottom:'2px solid #b8fd4b', borderLeft:'2px solid #b8fd4b' }} />
               <div style={{ position:'absolute', bottom:4, right:4, width:16, height:16, borderBottom:'2px solid #b8fd4b', borderRight:'2px solid #b8fd4b' }} />
             </div>
-
           </div>
         </RevealItem>
       </div>

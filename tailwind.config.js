@@ -91,6 +91,7 @@ export default {
         "scanline": "scanline 8s linear infinite",
         "glitch": "glitch 0.2s linear infinite",
         "pulse-primary": "pulse-primary 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "gradient-primary": "gradient-primary 6s ease infinite",
       },
       keyframes: {
         blink: {
@@ -112,6 +113,11 @@ export default {
         "pulse-primary": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
+        },
+        "gradient-primary": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
       },
       backgroundImage: {

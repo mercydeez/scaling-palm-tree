@@ -165,8 +165,7 @@ function AnimatedParticles({ count = 400, size = 0.15, slow = false }) {
 
   const origins = useMemo(() => positions.slice(), [positions]);
   const speed = slow ? 0.2 : 0.5;
-
-  useFrame(({ clock }) => {
+  useFrame(({ clock, mouse }) => {
     if (!pointsRef.current) return;
     const t = clock.getElapsedTime() * speed;
     const pos = pointsRef.current.geometry.attributes.position;
@@ -178,7 +177,7 @@ function AnimatedParticles({ count = 400, size = 0.15, slow = false }) {
     }
     pos.needsUpdate = true;
     
-    // Particles drift slightly toward mouse
+    // Smoothly drift particles based on mouse
     pointsRef.current.rotation.y += (mouse.x * (slow ? 0.05 : 0.1) - pointsRef.current.rotation.y) * 0.02;
     pointsRef.current.rotation.x += (mouse.y * (slow ? 0.02 : 0.05) - pointsRef.current.rotation.x) * 0.02;
   });
